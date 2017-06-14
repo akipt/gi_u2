@@ -147,9 +147,8 @@ class KNearestNeighbor(object):
             # Hint: Look up the function numpy.argsort.                             #
             ###################################################################
             dists_for_i = np.argsort(dists[i])[:k]
-            y_pred[i] = 
+            closest_y = self.y_train[dists_for_i]
             
-
             ###################################################################
             # TODO (5):                                                             #
             # Now that you have found the labels of the k nearest neighbors, you    #
@@ -157,7 +156,12 @@ class KNearestNeighbor(object):
             # Store this label in y_pred[i]. Break ties by choosing the smaller     #
             # label.                                                                #
             ###################################################################
-
+            #solution based on:
+            #https://stackoverflow.com/questions/6252280/find-the-most-frequent-number-in-a-numpy-vector
+            #could also be done with collections.Counter or scipy.stats.mode
+            counts = np.bincount(closest_y)
+            y_pred[i]= np.argmax(counts)
+            
             ###################################################################
             #                           END OF YOUR CODE                            #
             ###################################################################
